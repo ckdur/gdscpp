@@ -595,13 +595,16 @@ void gdsForge::gdsText(const gdsTEXT &in_TEXT, bool minimal)
   // PRESENTATION; PATHTYPE, WIDTH, STRANS, MAG, and ANGLE are optional
   bitset<16> bits;
 
-  // this->GDSwriteBitArr(GDS_PRESENTATION, presentation_flags);
-  this->GDSwriteBitArr(GDS_PRESENTATION, bits);
+  this->GDSwriteBitArr(GDS_PRESENTATION, in_TEXT.presentation_flags);
+  //this->GDSwriteBitArr(GDS_PRESENTATION, bits);
 
   data[0] = in_TEXT.width;
   this->GDSwriteInt(GDS_WIDTH, data, 1);
 
   // magnification, default 1
+  double datad[1];
+  datad[0] = in_TEXT.scale;
+  this->GDSwriteRea(GDS_MAG, datad, 1);
   if (in_TEXT.scale == 1)
     bits.set(2, 0);
   else
