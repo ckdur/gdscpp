@@ -601,10 +601,12 @@ void gdsForge::gdsText(const gdsTEXT &in_TEXT, bool minimal)
   data[0] = in_TEXT.width;
   this->GDSwriteInt(GDS_WIDTH, data, 1);
 
+#ifdef GDS_INCL_MAG_TEXT
   // magnification, default 1
   double datad[1];
   datad[0] = in_TEXT.scale;
   this->GDSwriteRea(GDS_MAG, datad, 1);
+#endif
   if (in_TEXT.scale == 1)
     bits.set(2, 0);
   else
